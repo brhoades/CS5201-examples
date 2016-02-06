@@ -54,7 +54,7 @@ MoveSemantics& MoveSemantics::operator=(const MoveSemantics& ex)
 
 void MoveSemantics::get_summary()
 {
-  cout << "    Total Copies: " << m_cp_times << "    Total Initializations: " 
+  cout << "    Total Copies: " << m_cp_times << "    Total Default Calls: " 
        << m_def_times << endl;
 }
 

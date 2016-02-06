@@ -4,23 +4,6 @@
 using namespace std;
 
 template <class T>
-T some_func(T in);
-
-template <class T>
-void run_example();
-
-int main()
-{
-  cout << "No Move Semantics Example: " << endl << endl;
-  run_example<Regular>();
-
-  cout << endl << endl << "With Move Semantics: " << endl << endl;
-  run_example<MoveSemantics>();
-
-  return 0;
-}
-
-template <class T>
 T some_func(T in) { return in; }
 
 template <class T>
@@ -47,3 +30,11 @@ void run_example()
   T::get_summary();
 }
 
+int main()
+{
+  cout << "No Move Semantics Example: " << endl << endl;
+  run_example<Regular>();
+  cout << endl << endl << "With Move Semantics: " << endl << endl;
+  run_example<MoveSemantics>();
+  return 0;
+}
