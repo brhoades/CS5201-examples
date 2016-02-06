@@ -1,13 +1,11 @@
-#include <iostream>
 #include "movesemantics.h"
-using namespace std;
 
-int MoveSemantics::m_cp_times = 0;
-int MoveSemantics::m_def_times = 0;
+int MoveSemantics::m_cp_times = 0, MoveSemantics::m_def_times = 0;
 
 MoveSemantics::MoveSemantics()
 {
-  cout << "    Default Constructor Called (" << ++m_def_times << " times)" << endl;
+  cout << "    Default Constructor Called (" << ++m_def_times
+       << " times)" << endl;
   m_example_member = new int;
   *m_example_member = 0;
 }
@@ -22,12 +20,14 @@ MoveSemantics::MoveSemantics(MoveSemantics&& ex)
 {
   cout << "    Move Constructor" << endl;
   m_example_member = ex.m_example_member;
-  ex.m_example_member = nullptr; // Oh, uh, this is the new C++11 constant for 0.
+  ex.m_example_member = nullptr;
+  // nullptr is the new C++11 constant for 0.
 }
 
 MoveSemantics::MoveSemantics(const MoveSemantics& ex): MoveSemantics()
 {
-  cout << "    Copy Constructor (" << ++m_cp_times << " times)" << endl;
+  cout << "    Copy Constructor (" << ++m_cp_times 
+       << " times)" << endl;
   *m_example_member = *ex.m_example_member;
 }
 
@@ -54,7 +54,7 @@ MoveSemantics& MoveSemantics::operator=(const MoveSemantics& ex)
 
 void MoveSemantics::get_summary()
 {
-  cout << "    Total Copies: " << m_cp_times << "    Total Default Calls: " 
-       << m_def_times << endl;
+  cout << "    Total Copies: " << m_cp_times
+       << "    Total Default Calls: " << m_def_times << endl;
 }
 
