@@ -21,7 +21,7 @@ MoveSemantics::MoveSemantics(MoveSemantics&& ex)
   cout << "    Move Constructor" << endl;
   m_example_member = ex.m_example_member;
   ex.m_example_member = nullptr;
-  // nullptr is the new C++11 constant for 0.
+  // nullptr is the new C++11 constant for null pointers.
 }
 
 MoveSemantics::MoveSemantics(const MoveSemantics& ex): MoveSemantics()
