@@ -16,7 +16,7 @@ class MoveSemantics
       m_example_member = new int;
       *m_example_member = 0;
 
-      cout << "    Default Constructor Called" << endl;
+      cout << "    Default Constructor Called (" << ++m_def_times << " times)" << endl;
     }
 
     // Parameterized constructor which takes an integer, delegates to example
@@ -41,7 +41,7 @@ class MoveSemantics
     // Boring copy constructor, also delegating to default to set up memory.
     MoveSemantics(const MoveSemantics& ex): MoveSemantics()
     {
-      cout << "    Copy Constructor (" << ++cp_times << " times)" << endl;
+      cout << "    Copy Constructor (" << ++m_cp_times << " times)" << endl;
       *m_example_member = *ex.m_example_member;
     }
 
@@ -70,25 +70,29 @@ class MoveSemantics
       return *this;
     }
 
+    static void get_summary()
+    {
+      cout << "    Total Copies: " << m_cp_times << endl;
+      cout << "    Total Initializations: " << m_def_times << endl;
+    }
+
   private:
     int* m_example_member;
-    static int cp_times;
+    static int m_def_times;
+    static int m_cp_times;
 };
 
 class Regular
 {
   public:
-    // Default constructor, just makes an int pointer as a member.
     Regular()
     {
       m_example_member = new int;
       *m_example_member = 0;
 
-      cout << "    Default Constructor Called" << endl;
+      cout << "    Default Constructor Called (" << ++m_def_times << " times)" << endl;
     }
 
-    // Parameterized constructor which takes an integer, delegates to example
-    // to prepare memory then assigns the value.
     Regular(const int example_member): Regular()
     {
       cout << "    Parameterized Constructor Called" << endl;
@@ -96,20 +100,18 @@ class Regular
       *m_example_member = example_member;
     }
 
-    // Boring copy constructor, also delegating to default to set up memory.
     Regular(const Regular& ex): Regular()
     {
-      cout << "    Copy Constructor (" << ++cp_times << " times)" << endl;
+      cout << "    Copy Constructor (" << ++m_cp_times << " times)" << endl;
       *m_example_member = *ex.m_example_member;
     }
 
-    // Boring Destructor 
     ~Regular()
     {
       delete m_example_member;
+      m_example_member = nullptr;
     }
 
-    // Copy assignment operator, nothing special here.
     Regular& operator=(const Regular& ex)
     {
       cout << "    Copy Assignment Operator" << endl;
@@ -118,14 +120,23 @@ class Regular
       return *this;
     }
 
+    static void get_summary()
+    {
+      cout << "    Total Copies: " << m_cp_times << endl;
+      cout << "    Total Initializations: " << m_def_times << endl;
+    }
+
   private:
     int* m_example_member;
-    static int cp_times;
+    static int m_def_times;
+    static int m_cp_times;
 };
 
 
-int MoveSemantics::cp_times = 0;
-int Regular::cp_times = 0;
+int MoveSemantics::m_cp_times = 0;
+int MoveSemantics::m_def_times = 0;
+int Regular::m_cp_times = 0;
+int Regular::m_def_times = 0;
 
 // Some function where an object is copied in and then returned.
 template <class T>
@@ -157,6 +168,9 @@ void run_example()
   T e(i);
 
   e = 4;
+
+  cout << "  TOTALS: " << endl;
+  T::get_summary();
 }
 
 int main()
