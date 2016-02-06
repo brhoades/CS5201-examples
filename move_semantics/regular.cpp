@@ -38,7 +38,7 @@ Regular& Regular::operator=(const Regular& ex)
 
 void Regular::get_summary()
 {
-  cout << "    Total Copies: " << m_cp_times << 
+  cout << "    Total Copies: " << m_cp_times
        << "    Total Default Calls: " << m_def_times << endl;
 }
 
