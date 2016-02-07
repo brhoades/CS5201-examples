@@ -4,15 +4,15 @@ int MoveSemantics::m_cp_times = 0, MoveSemantics::m_def_times = 0;
 
 MoveSemantics::MoveSemantics()
 {
-  cout << "    Default Constructor Called (" << ++m_def_times
-       << " times)" << endl;
+  cout << "    Default Constructor (" << ++m_def_times
+       << " times total)" << endl;
   m_example_member = new int;
   *m_example_member = 0;
 }
 
 MoveSemantics::MoveSemantics(const int example_member): MoveSemantics()
 {
-  cout << "    Parameterized Constructor Called" << endl;
+  cout << "    Parameterized Constructor" << endl;
   *m_example_member = example_member;
 }
 
@@ -27,7 +27,7 @@ MoveSemantics::MoveSemantics(MoveSemantics&& ex)
 MoveSemantics::MoveSemantics(const MoveSemantics& ex): MoveSemantics()
 {
   cout << "    Copy Constructor (" << ++m_cp_times 
-       << " times)" << endl;
+       << " times total)" << endl;
   *m_example_member = *ex.m_example_member;
 }
 
